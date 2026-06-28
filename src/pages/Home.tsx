@@ -1,15 +1,13 @@
-import { Link } from "react-router-dom";
-
 import {
 	signupFeatures,
 	signupThemes,
 	type SignupTheme,
 } from "../constants/signupThemes";
 
-const services: { theme: SignupTheme; path: string }[] = [
-	{ theme: "community", path: "/signup/community" },
-	{ theme: "news", path: "/signup/news" },
-	{ theme: "shopping", path: "/signup/shopping" },
+const services: { theme: SignupTheme; href: string }[] = [
+	{ theme: "community", href: "/community.html" },
+	{ theme: "news", href: "/news.html" },
+	{ theme: "shopping", href: "/shopping.html" },
 ];
 
 export default function Home() {
@@ -30,7 +28,7 @@ export default function Home() {
 				</header>
 
 				<div className="grid gap-6 md:grid-cols-3">
-					{services.map(({ theme, path }) => {
+					{services.map(({ theme, href }) => {
 						const config = signupThemes[theme];
 						const features = signupFeatures[theme];
 
@@ -73,12 +71,12 @@ export default function Home() {
 										))}
 									</ul>
 
-									<Link
-										to={path}
+									<a
+										href={href}
 										className={`mt-6 block rounded-xl py-3 text-center text-sm font-semibold text-white shadow-md transition ${config.button} ${config.buttonShadow}`}
 									>
 										{config.label} 가입하기
-									</Link>
+									</a>
 								</div>
 							</article>
 						);

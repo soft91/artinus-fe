@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-
 import { signupThemes, type SignupTheme } from "../constants/signupThemes";
 
 type Props = {
@@ -49,12 +47,12 @@ export default function SignupCompleteLayout({ theme: themeKey }: Props) {
 				</p>
 
 				<div className="mt-8 flex flex-col gap-3 sm:flex-row">
-					<Link
-						to="/"
+					<a
+						href="/"
 						className="flex-1 rounded-xl border border-gray-200 py-3 text-sm font-semibold text-gray-700 transition hover:bg-gray-50"
 					>
 						서비스 선택으로
-					</Link>
+					</a>
 				</div>
 			</div>
 		</div>

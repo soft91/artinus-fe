@@ -1,22 +1,20 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
-import App from "./App";
-
-import "./index.css";
+import "../index.css";
 
 async function enableMocking() {
 	if (import.meta.env.DEV) {
-		const { worker } = await import("./mocks/browser");
+		const { worker } = await import("../mocks/browser");
 
 		await worker.start();
 	}
 }
 
-enableMocking().then(() => {
+export async function bootstrap(rootElement: React.ReactNode) {
+	await enableMocking();
+
 	ReactDOM.createRoot(document.getElementById("root")!).render(
-		<React.StrictMode>
-			<App />
-		</React.StrictMode>,
+		<React.StrictMode>{rootElement}</React.StrictMode>,
 	);
-});
+}

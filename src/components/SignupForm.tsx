@@ -81,7 +81,7 @@ export default function SignupForm({ theme, themeKey }: Props) {
 			return;
 		}
 
-		navigate(`/signup/${themeKey}/complete`);
+		navigate("/complete");
 	};
 
 	const renderField = (field: SignupFieldType) => {

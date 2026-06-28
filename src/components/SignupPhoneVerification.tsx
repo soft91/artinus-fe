@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 
-import { verifyPhoneCode } from "../api/verifyPhone";
+import { verifyPhoneCode } from "../api/signup/verifyPhone";
 import { useVerificationTimer } from "../hooks/useVerificationTimer";
 import {
 	sanitizeCodeInput,
@@ -28,7 +28,10 @@ const verificationMessages = {
 	notSent: "인증번호를 먼저 받아주세요",
 };
 
-export default function SignupPhoneVerification({ themeKey, inputClass }: Props) {
+export default function SignupPhoneVerification({
+	themeKey,
+	inputClass,
+}: Props) {
 	const theme = signupThemes[themeKey];
 	const {
 		register,

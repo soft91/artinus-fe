@@ -1,5 +1,5 @@
 import { http, HttpResponse } from "msw";
-import { randomDelay } from "../utils/randomDelay";
+import { randomDelay } from "../utils";
 
 export const handlers = [
 	http.post("/api/verify", async ({ request }) => {

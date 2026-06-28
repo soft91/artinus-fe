@@ -1,5 +1,11 @@
 export type SignupTheme = "community" | "news" | "shopping";
 
+export const signupPaths: Record<SignupTheme, string> = {
+	community: "/community",
+	news: "/news",
+	shopping: "/shopping",
+};
+
 export type SignupThemeConfig = {
 	label: string;
 	description: string;

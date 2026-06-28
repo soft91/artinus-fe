@@ -10,13 +10,13 @@ import {
 	signupRegisterRules,
 	signupValidationRules,
 } from "../constants/signupValidation";
-import { useSignupStore } from "../store/useSiginupStore";
+import { useSignupStore } from "../store/useSignupStore";
 import type { SignupFormContextValues } from "../types/signup";
-import type { SignupThemeConfig } from "../constants/signupThemes";
+import { signupThemes, type SignupTheme } from "../constants/signupThemes";
 import { isVerificationExpired } from "../utils";
 
 type Props = {
-	theme: SignupThemeConfig;
+	themeKey: SignupTheme;
 	inputClass: string;
 };
 
@@ -28,7 +28,8 @@ const verificationMessages = {
 	notSent: "인증번호를 먼저 받아주세요",
 };
 
-export default function SignupPhoneVerification({ theme, inputClass }: Props) {
+export default function SignupPhoneVerification({ themeKey, inputClass }: Props) {
+	const theme = signupThemes[themeKey];
 	const {
 		register,
 		getValues,

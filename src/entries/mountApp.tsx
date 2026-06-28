@@ -11,7 +11,7 @@ async function enableMocking() {
 	}
 }
 
-export async function bootstrap(rootElement: React.ReactNode) {
+export async function mountApp(rootElement: React.ReactNode) {
 	await enableMocking();
 
 	ReactDOM.createRoot(document.getElementById("root")!).render(

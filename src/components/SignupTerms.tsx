@@ -2,18 +2,18 @@ import { Controller, useFormContext, useWatch } from "react-hook-form";
 
 import { signupTermItems } from "../constants/signupTerms";
 import { validateRequiredTerm } from "../constants/signupValidation";
-import type { SignupTheme, SignupThemeConfig } from "../constants/signupThemes";
+import { signupThemes, type SignupTheme } from "../constants/signupThemes";
 import type { SignupFormContextValues } from "../types/signup";
 
 type Props = {
-	theme: SignupThemeConfig;
 	themeKey: SignupTheme;
 };
 
 const checkboxBaseClass =
 	"size-4 shrink-0 cursor-pointer rounded border-gray-300";
 
-export default function SignupTerms({ theme, themeKey }: Props) {
+export default function SignupTerms({ themeKey }: Props) {
+	const theme = signupThemes[themeKey];
 	const { control, setValue, clearErrors, trigger } =
 		useFormContext<SignupFormContextValues>();
 	const items = signupTermItems[themeKey];

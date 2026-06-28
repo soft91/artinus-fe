@@ -61,7 +61,7 @@ export default function SignupLayout({ theme: themeKey }: Props) {
 						</p>
 					</div>
 
-					<SignupForm theme={theme} themeKey={themeKey} />
+					<SignupForm themeKey={themeKey} />
 				</section>
 			</div>
 		</div>

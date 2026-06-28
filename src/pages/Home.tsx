@@ -1,14 +1,16 @@
 import {
 	signupFeatures,
+	signupPaths,
 	signupThemes,
 	type SignupTheme,
 } from "../constants/signupThemes";
 
-const services: { theme: SignupTheme; href: string }[] = [
-	{ theme: "community", href: "/community.html" },
-	{ theme: "news", href: "/news.html" },
-	{ theme: "shopping", href: "/shopping.html" },
-];
+const services: { theme: SignupTheme; href: string }[] = (
+	Object.keys(signupPaths) as SignupTheme[]
+).map((theme) => ({
+	theme,
+	href: signupPaths[theme],
+}));
 
 export default function Home() {
 	return (

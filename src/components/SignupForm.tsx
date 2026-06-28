@@ -3,7 +3,7 @@ import { useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 
 import SignupPhoneVerification from "./SignupPhoneVerification";
-import SignupTerms from "./SignupTerms.tsx";
+import SignupTerms from "./SignupTerms";
 import {
 	signupFieldLabels,
 	signupFields,
@@ -16,8 +16,9 @@ import {
 	signupRegisterRules,
 	signupValidationRules,
 } from "../constants/signupValidation";
-import type { SignupTheme, SignupThemeConfig } from "../constants/signupThemes";
-import { useSignupStore } from "../store/useSiginupStore";
+import type { SignupTheme } from "../constants/signupThemes";
+import { signupThemes } from "../constants/signupThemes";
+import { useSignupStore } from "../store/useSignupStore";
 import {
 	canSubmitSignup,
 	getSignupFormDefaultValues,
@@ -25,14 +26,14 @@ import {
 import type { SignupFormContextValues } from "../types/signup";
 
 type Props = {
-	theme: SignupThemeConfig;
 	themeKey: SignupTheme;
 };
 
 const inputClass =
 	"w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-900 outline-none transition focus:ring-4";
 
-export default function SignupForm({ theme, themeKey }: Props) {
+export default function SignupForm({ themeKey }: Props) {
+	const theme = signupThemes[themeKey];
 	const navigate = useNavigate();
 	const fields = signupFields[themeKey];
 	const isPhoneVerified = useSignupStore((state) => state.isPhoneVerified);
@@ -89,7 +90,7 @@ export default function SignupForm({ theme, themeKey }: Props) {
 			return (
 				<SignupPhoneVerification
 					key={field}
-					theme={theme}
+					themeKey={themeKey}
 					inputClass={`${inputClass} ${theme.inputFocus}`}
 				/>
 			);
@@ -220,7 +221,7 @@ export default function SignupForm({ theme, themeKey }: Props) {
 			<form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
 				{fields.map(renderField)}
 
-				<SignupTerms theme={theme} themeKey={themeKey} />
+				<SignupTerms themeKey={themeKey} />
 
 				<button
 					type="submit"

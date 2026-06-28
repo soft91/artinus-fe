@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import type { ComponentType } from "react";
 
-import NotFound from "../../pages/NotFound";
+import NotFound from "../../../pages/NotFound";
 
 export function createSignupRouter(
 	basename: string,

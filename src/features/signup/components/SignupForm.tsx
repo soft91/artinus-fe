@@ -2,6 +2,9 @@ import { FormProvider, useForm, useWatch } from "react-hook-form";
 import { useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 
+import Button from "../../../components/Button";
+import FormField from "../../../components/FormField";
+import { Input } from "../../../components/Input";
 import SignupPhoneVerification from "./SignupPhoneVerification";
 import SignupTerms from "./SignupTerms";
 import {
@@ -18,19 +21,16 @@ import {
 } from "../constants/signupValidation";
 import type { SignupTheme } from "../constants/signupThemes";
 import { signupThemes } from "../constants/signupThemes";
-import { useSignupStore } from "../store/useSignupStore";
+import { useSignupStore } from "../../../store/signup/useSignupStore";
 import {
 	canSubmitSignup,
 	getSignupFormDefaultValues,
 } from "../utils/signupForm";
-import type { SignupFormContextValues } from "../types/signup";
+import type { SignupFormContextValues } from "../types";
 
 type Props = {
 	themeKey: SignupTheme;
 };
-
-const inputClass =
-	"w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-900 outline-none transition focus:ring-4";
 
 export default function SignupForm({ themeKey }: Props) {
 	const theme = signupThemes[themeKey];
@@ -67,15 +67,14 @@ export default function SignupForm({ themeKey }: Props) {
 		...defaultValues,
 		...watchedValues,
 		terms: Object.fromEntries(
-			Object.entries(mergedTerms).map(([key, value]) => [key, Boolean(value)]),
+			Object.entries(mergedTerms).map(([key, value]) => [
+				key,
+				Boolean(value),
+			]),
 		),
 	};
 
-	const canSubmit = canSubmitSignup(
-		themeKey,
-		formValues,
-		isPhoneVerified,
-	);
+	const canSubmit = canSubmitSignup(themeKey, formValues, isPhoneVerified);
 
 	const onSubmit = () => {
 		if (!canSubmitSignup(themeKey, getValues(), isPhoneVerified)) {
@@ -87,13 +86,7 @@ export default function SignupForm({ themeKey }: Props) {
 
 	const renderField = (field: SignupFieldType) => {
 		if (field === "phoneVerification") {
-			return (
-				<SignupPhoneVerification
-					key={field}
-					themeKey={themeKey}
-					inputClass={`${inputClass} ${theme.inputFocus}`}
-				/>
-			);
+			return <SignupPhoneVerification key={field} themeKey={themeKey} />;
 		}
 
 		const label = signupFieldLabels[field];
@@ -103,18 +96,18 @@ export default function SignupForm({ themeKey }: Props) {
 			const birthDateBounds = getBirthDateInputBounds();
 
 			return (
-				<div key={field} className="space-y-2">
-					<label
-						htmlFor={id}
-						className="text-sm font-medium text-gray-700"
-					>
-						{label}
-					</label>
-					<input
+				<FormField
+					key={field}
+					label={label}
+					htmlFor={id}
+					error={errors.birthDate?.message}
+				>
+					<Input
 						id={id}
 						type="date"
 						min={birthDateBounds.min}
 						max={birthDateBounds.max}
+						focusClassName={`${theme.inputFocus} cursor-pointer [&::-webkit-calendar-picker-indicator]:cursor-pointer`}
 						onKeyDown={(event) => {
 							if (event.key === "Tab") {
 								return;
@@ -123,93 +116,71 @@ export default function SignupForm({ themeKey }: Props) {
 							event.preventDefault();
 						}}
 						onPaste={(event) => event.preventDefault()}
-						className={`${inputClass} ${theme.inputFocus} cursor-pointer [&::-webkit-calendar-picker-indicator]:cursor-pointer`}
 						{...register("birthDate", signupRegisterRules.birthDate)}
 					/>
-					{errors.birthDate && (
-						<p className="text-xs text-red-500">
-							{errors.birthDate.message}
-						</p>
-					)}
-				</div>
+				</FormField>
 			);
 		}
 
 		if (field === "id") {
 			return (
-				<div key={field} className="space-y-2">
-					<label
-						htmlFor={id}
-						className="text-sm font-medium text-gray-700"
-					>
-						{label}
-					</label>
-					<input
+				<FormField
+					key={field}
+					label={label}
+					htmlFor={id}
+					error={errors.id?.message}
+				>
+					<Input
 						id={id}
 						type="text"
 						placeholder={signupPlaceholders.id}
 						maxLength={signupValidationRules.id.maxLength}
 						autoComplete="username"
-						className={`${inputClass} ${theme.inputFocus}`}
+						focusClassName={theme.inputFocus}
 						{...register("id", signupRegisterRules.id)}
 					/>
-					{errors.id && (
-						<p className="text-xs text-red-500">{errors.id.message}</p>
-					)}
-				</div>
+				</FormField>
 			);
 		}
 
 		if (field === "password") {
 			return (
-				<div key={field} className="space-y-2">
-					<label
-						htmlFor={id}
-						className="text-sm font-medium text-gray-700"
-					>
-						{label}
-					</label>
-					<input
+				<FormField
+					key={field}
+					label={label}
+					htmlFor={id}
+					error={errors.password?.message}
+				>
+					<Input
 						id={id}
 						type="password"
 						placeholder={signupPlaceholders.password}
-						className={`${inputClass} ${theme.inputFocus}`}
+						focusClassName={theme.inputFocus}
 						{...register("password", signupRegisterRules.password)}
 					/>
-					{errors.password && (
-						<p className="text-xs text-red-500">
-							{errors.password.message}
-						</p>
-					)}
-				</div>
+				</FormField>
 			);
 		}
 
 		if (field === "passwordConfirm") {
 			return (
-				<div key={field} className="space-y-2">
-					<label
-						htmlFor={id}
-						className="text-sm font-medium text-gray-700"
-					>
-						{label}
-					</label>
-					<input
+				<FormField
+					key={field}
+					label={label}
+					htmlFor={id}
+					error={errors.passwordConfirm?.message}
+				>
+					<Input
 						id={id}
 						type="password"
 						placeholder={signupPlaceholders.passwordConfirm}
-						className={`${inputClass} ${theme.inputFocus}`}
+						focusClassName={theme.inputFocus}
 						{...register(
 							"passwordConfirm",
 							getPasswordConfirmRules(() => getValues("password")),
 						)}
 					/>
-					{errors.passwordConfirm && (
-						<p className="text-xs text-red-500">
-							{errors.passwordConfirm.message}
-						</p>
-					)}
-				</div>
+				</FormField>
 			);
 		}
 
@@ -223,13 +194,14 @@ export default function SignupForm({ themeKey }: Props) {
 
 				<SignupTerms themeKey={themeKey} />
 
-				<button
+				<Button
 					type="submit"
+					fullWidth
 					disabled={!canSubmit || isSubmitting}
-					className={`w-full rounded-xl py-3.5 text-sm font-semibold text-white shadow-lg transition disabled:cursor-not-allowed disabled:opacity-50 ${theme.button} ${theme.buttonShadow}`}
+					themeClassName={`${theme.button} ${theme.buttonShadow}`}
 				>
 					회원가입
-				</button>
+				</Button>
 			</form>
 		</FormProvider>
 	);

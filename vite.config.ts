@@ -4,11 +4,11 @@ import tailwindcss from "@tailwindcss/vite";
 import babel from "@rolldown/plugin-babel";
 import { resolve } from "path";
 
-/** /news → news.html 로 서빙 (dev·preview). 빌드 산출물은 dist/news.html */
+/** /signup/news → signup/news.html (dev·preview). 빌드 산출물: dist/signup/news.html */
 const signupPathToHtml: Record<string, string> = {
-	"/community": "/community.html",
-	"/news": "/news.html",
-	"/shopping": "/shopping.html",
+	"/signup/community": "/signup/community.html",
+	"/signup/news": "/signup/news.html",
+	"/signup/shopping": "/signup/shopping.html",
 };
 
 function rewriteSignupUrl(url: string) {
@@ -67,9 +67,9 @@ export default defineConfig({
 		rollupOptions: {
 			input: {
 				main: resolve(__dirname, "index.html"),
-				community: resolve(__dirname, "community.html"),
-				news: resolve(__dirname, "news.html"),
-				shopping: resolve(__dirname, "shopping.html"),
+				"signup/community": resolve(__dirname, "signup/community.html"),
+				"signup/news": resolve(__dirname, "signup/news.html"),
+				"signup/shopping": resolve(__dirname, "signup/shopping.html"),
 			},
 		},
 	},

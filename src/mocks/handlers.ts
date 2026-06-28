@@ -1,5 +1,5 @@
 import { http, HttpResponse } from "msw";
-import { randomDelay } from "../utils";
+import { randomDelay } from "./utils";
 
 type VerifyRequestBody = {
 	mobile: string;

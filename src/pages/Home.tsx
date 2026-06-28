@@ -3,7 +3,7 @@ import {
 	signupPaths,
 	signupThemes,
 	type SignupTheme,
-} from "../constants/signupThemes";
+} from "../features/signup/constants/signupThemes";
 
 const services: { theme: SignupTheme; href: string }[] = (
 	Object.keys(signupPaths) as SignupTheme[]
@@ -41,7 +41,9 @@ export default function Home() {
 							>
 								<div
 									className="relative min-h-44 overflow-hidden bg-cover bg-center px-6 py-8 text-white"
-									style={{ backgroundImage: `url(${config.heroImage})` }}
+									style={{
+										backgroundImage: `url(${config.heroImage})`,
+									}}
 								>
 									<div
 										className={`absolute inset-0 ${config.heroOverlay}`}
@@ -55,9 +57,6 @@ export default function Home() {
 										<h2 className="mt-2 text-xl font-bold">
 											{config.label}
 										</h2>
-										<p className="mt-2 text-sm leading-6 text-white/90">
-											{config.description}
-										</p>
 									</div>
 								</div>
 

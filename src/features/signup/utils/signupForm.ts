@@ -8,7 +8,7 @@ import {
 	signupValidationMessages,
 	signupValidationRules,
 } from "../constants/signupValidation";
-import type { SignupFormContextValues } from "../types/signup";
+import type { SignupFormContextValues } from "../types";
 
 export function getSignupFormDefaultValues<T extends SignupTheme>(
 	themeKey: T,
@@ -91,7 +91,9 @@ export function isSignupFormValid(
 	for (const field of signupFields[themeKey]) {
 		switch (field) {
 			case "id":
-				if (validateSignupId("id" in values ? values.id : undefined) !== true) {
+				if (
+					validateSignupId("id" in values ? values.id : undefined) !== true
+				) {
 					return false;
 				}
 				break;
@@ -134,5 +136,7 @@ export function canSubmitSignup(
 	values: SignupFormContextValues,
 	isPhoneVerified: boolean,
 ): boolean {
-	return isPhoneVerified && isSignupFormValid(themeKey, values, isPhoneVerified);
+	return (
+		isPhoneVerified && isSignupFormValid(themeKey, values, isPhoneVerified)
+	);
 }

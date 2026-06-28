@@ -1,23 +1,20 @@
 import { Controller, useFormContext, useWatch } from "react-hook-form";
 
+import { Checkbox } from "../../../components/Checkbox";
 import { signupTermItems } from "../constants/signupTerms";
 import { validateRequiredTerm } from "../constants/signupValidation";
 import { signupThemes, type SignupTheme } from "../constants/signupThemes";
-import type { SignupFormContextValues } from "../types/signup";
+import type { SignupFormContextValues } from "../types";
 
 type Props = {
 	themeKey: SignupTheme;
 };
-
-const checkboxBaseClass =
-	"size-4 shrink-0 cursor-pointer rounded border-gray-300";
 
 export default function SignupTerms({ themeKey }: Props) {
 	const theme = signupThemes[themeKey];
 	const { control, setValue, clearErrors, trigger } =
 		useFormContext<SignupFormContextValues>();
 	const items = signupTermItems[themeKey];
-	const checkboxClass = `${checkboxBaseClass} ${theme.checkboxChecked}`;
 	const termFieldNames = items.map((item) => `terms.${item.id}` as const);
 	const termValues = useWatch({
 		control,
@@ -60,11 +57,10 @@ export default function SignupTerms({ themeKey }: Props) {
 	return (
 		<div className="space-y-3 rounded-xl bg-gray-50 p-4">
 			<label className="flex cursor-pointer items-center gap-3 border-b border-gray-200 pb-3">
-				<input
-					type="checkbox"
+				<Checkbox
 					checked={allChecked}
 					onChange={(event) => applyAllTerms(event.target.checked)}
-					className={checkboxClass}
+					accentClassName={theme.checkboxChecked}
 				/>
 				<span className="text-sm font-semibold text-gray-900">
 					전체 동의
@@ -84,8 +80,7 @@ export default function SignupTerms({ themeKey }: Props) {
 							render={({ field, fieldState }) => (
 								<div>
 									<label className="flex cursor-pointer items-center gap-3">
-										<input
-											type="checkbox"
+										<Checkbox
 											checked={Boolean(field.value)}
 											onChange={(event) =>
 												handleTermChange(
@@ -94,7 +89,7 @@ export default function SignupTerms({ themeKey }: Props) {
 													field.onChange,
 												)
 											}
-											className={checkboxClass}
+											accentClassName={theme.checkboxChecked}
 										/>
 										<span className="flex items-center text-sm text-gray-600">
 											<span

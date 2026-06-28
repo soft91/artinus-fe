@@ -1,14 +1,15 @@
 export type SignupTheme = "community" | "news" | "shopping";
 
+export const SIGNUP_BASE_PATH = "/signup";
+
 export const signupPaths: Record<SignupTheme, string> = {
-	community: "/community",
-	news: "/news",
-	shopping: "/shopping",
+	community: `${SIGNUP_BASE_PATH}/community`,
+	news: `${SIGNUP_BASE_PATH}/news`,
+	shopping: `${SIGNUP_BASE_PATH}/shopping`,
 };
 
 export type SignupThemeConfig = {
 	label: string;
-	description: string;
 	heroImage: string;
 	heroOverlay: string;
 	pageBg: string;
@@ -27,8 +28,6 @@ export type SignupThemeConfig = {
 export const signupThemes: Record<SignupTheme, SignupThemeConfig> = {
 	community: {
 		label: "커뮤니티 서비스",
-		description:
-			"관심사가 같은 사람들과 소통하고, 다양한 이야기를 나눠보세요.",
 		heroImage: "/images/community-banner.png",
 		heroOverlay:
 			"bg-gradient-to-br from-violet-900/75 via-purple-900/65 to-indigo-900/75",
@@ -46,8 +45,6 @@ export const signupThemes: Record<SignupTheme, SignupThemeConfig> = {
 	},
 	news: {
 		label: "뉴스 구독 서비스",
-		description:
-			"매일 아침, 엄선된 뉴스를 받아보고 빠르게 정보를 확인하세요.",
 		heroImage: "/images/news-banner.png",
 		heroOverlay:
 			"bg-gradient-to-br from-emerald-900/75 via-green-900/65 to-teal-900/75",
@@ -65,7 +62,6 @@ export const signupThemes: Record<SignupTheme, SignupThemeConfig> = {
 	},
 	shopping: {
 		label: "쇼핑 멤버십 서비스",
-		description: "멤버십 전용 혜택과 특별 할인으로 더 스마트하게 쇼핑하세요.",
 		heroImage: "/images/shopping-banner.png",
 		heroOverlay:
 			"bg-gradient-to-br from-orange-900/75 via-amber-900/65 to-orange-900/75",

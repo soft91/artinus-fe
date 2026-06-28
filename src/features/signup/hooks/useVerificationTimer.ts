@@ -5,7 +5,7 @@ import {
 	getVerificationExpiresAt,
 	getVerificationRemainingSeconds,
 	isVerificationExpired,
-} from "../utils";
+} from "../utils/verificationTimer";
 
 export function useVerificationTimer() {
 	const [expiresAt, setExpiresAt] = useState<number | null>(null);

@@ -1,6 +1,6 @@
 import type { RegisterOptions } from "react-hook-form";
 
-import type { SignupPasswordFields } from "../types/signup";
+import type { SignupPasswordFields } from "../types";
 
 export const signupValidationRules = {
 	id: {
